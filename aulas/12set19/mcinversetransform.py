@@ -63,7 +63,6 @@ class Geometric:
         return floor((log(rand())/log(1-self.p)) + 1)
 
     def f(self, x):
-        # return 1 - self.q**(x+1) #accumulate function
         return self.p * self.q**(x - 1)
 
 class Poisson:
