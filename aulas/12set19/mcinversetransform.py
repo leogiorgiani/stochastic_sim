@@ -83,13 +83,24 @@ class Poisson:
     def f(self, x):
         return (self.lamb**x * exp(-self.lamb)) / factorial(x)
 
+class Weibul:
+    def __init__(self, a=2, b=1):
+        self.a = a
+        self.b = b
+
+    def x(self, rand=crand.rand):
+        return self.b * (- log(rand()))**(1/self.a)
+
+    def f(self, x):
+        return self.a * self.b**(-self.a) * x**(self.a-1) * exp(-(x/self.b)**self.a)
+
 def samplenumbers(dist=Normal(), n = 100000):
     X = [dist.x() for _ in range(n)]
     Y = [dist.f(x) for x in X]
     return list(zip(X,Y))
 
 if __name__ == "__main__":
-    A = samplenumbers(Poisson(),10000)
+    A = samplenumbers(Weibul(a = 1.5, b=3),10000)
     for x, y in A:
         print("({}, {})".format(x,y))
     plt.plot([x for x, _ in A], [y for _, y in A], 'k+', markersize=0.1)
