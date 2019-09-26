@@ -1,4 +1,5 @@
 class Entropy:
+    @staticmethod
     def rand():
         '''
             Generates a random number, between 0 and 1, using the /dev/random file.
@@ -9,14 +10,15 @@ class Entropy:
             n = int.from_bytes(buffer, 'little')
         return n / (2**64 - 1)
 
-prev = entropyrandom.rand()
+prev = Entropy.rand()
 
 class Congrencial:
+    @staticmethod
     def seed(x):
         global prev
         prev = x
 
-
+    @staticmethod
     def rand(a=16807, c=0, M=2**(32-1)-1):
         '''
             Generates a random number, between 0 and 1, where X(0) is the seed used.
