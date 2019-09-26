@@ -17,11 +17,19 @@ if __name__ == "__main__":
 
     queue = deque()
     
+    #variaveis para analise estatistica
+    tms = 0
+    tds = 0
+    tmef = 0
+    pfunclivre = 0
+    pfila = 0  
+    clientes = 0
+
     print("TEC,TS,Treal,Tinicio,Tfim,Tf,Tsistema,Tcaixalivre, N pessoas")
     while treal < TMAX:
         tec = Gtec.x()
         ts = Gts.x()
-        
+
         treal += tec
 
         
@@ -50,3 +58,19 @@ if __name__ == "__main__":
 
         print("{:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {}".format(tec,ts,treal,tinit,tfim,tf,tsist,tcaixalivre,nf))
         prev_ts = ts
+
+        # estudos estatisticos
+        clientes +=1
+        tms += ts
+        tds += tsist
+        tmef += tf
+        pfunclivre += tcaixalivre
+        if nf > 0:
+            pfila += 1
+
+
+    print(",,,,,,,,,Tempo médio de Serviço:, {}", (tms/clientes))
+    print(",,,,,,,,,Tempo médio despendido no sistema:, {}", (tds/clientes))
+    print(",,,,,,,,,Tempo médio de espera na fila:, {}", (tmef/clientes))
+    print(",,,,,,,,,Probabilidade do funcionario estar livre:, {}", (pfunclivre/TMAX))
+    print(",,,,,,,,,Probabilidade de esperar na fila:, {}", (pfila/clientes)) 
