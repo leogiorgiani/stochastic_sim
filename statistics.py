@@ -6,13 +6,13 @@ def media(X):
     return sum/len(X)
 
 
-def var(X):
+def var(X, sample=True):
     sum = 0
     avg = media(X)
     for i in range(len(X)):
         sum += (X[i] - avg)**2
         
-    return sum/len(X)
+    return sum/len(X-1) if sample else sum/len(X)
  
 def desvp(X):
     return var(X)**(1/2)
