@@ -1,18 +1,16 @@
+from dataclasses import dataclass
 from random import Congrencial as crand
 
+@dataclass
 class Coordinates:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    x: float
+    y: float
 
     def __add__(self, other):
         return Coordinates(self.x + other.x, self.y + other.y)
 
-    def __eq__(self, other):
-        return self.x == other.x and self.y == other.y
-
     def __str__(self):
-        return "("+ str(self.x) +", "+ str(self.y)+ ")"
+        return "({}, {})".format(self.x, self.y)
 
 def thinkdir(random = crand.random()):
     rand = random()
