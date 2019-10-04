@@ -2,75 +2,76 @@ from Distributions import Exponencial, Erlang, samplenumbers
 from collections import deque
 from Random import Congrencial as crand
 
-if __name__ == "__main__":
-    Gtec = Exponencial(4)
-    Gts = Erlang(2, 3)
+'''
+    TODO:
+        1. create a method for executing one entrance in the queue, and then be able to enqueue 
+        two or more queues.
+        2. create a method that receives the number of queues used in series and how many queues 
+        is used in parallel.
+        3. be able to perform statistical analysis for each queue, and the whole system
+'''
 
-    crand.seed(1000)
-
+def simulate(Gtec = Exponencial(4), Gts = Erlang(2, 3), TMAX = 60):
+    #tempos
     treal = 0
     tinit = 0
     tfim = 0
     tsist = 0
-
-    TMAX = 60
+    
+    #contadores
+    cTServ = 0 # Soma dos TS
+    cTSist = 0 # Soma dos TS + tempo na fila
+    cTEspera = 0 # Soma dos Tempos na fila
+    cTFuncLivre = 0 # Soma Tempo da Fila Vazia
+    cClientesFila = 0 # Soma do numero de clientes na fila
+    tClientes = 0 #Total de Clientes
 
     queue = deque()
     
-    #variaveis para analise estatistica
-    tms = 0
-    tds = 0
-    tmef = 0
-    pfunclivre = 0
-    pfila = 0  
-    clientes = 0
-
-    print("TEC,TS,Treal,Tinicio,Tfim,Tf,Tsistema,Tcaixalivre, N pessoas")
     while treal < TMAX:
-        tec = Gtec.x()
-        ts = Gts.x()
-
-        treal += tec
-
+        tClientes += 1 #Cada iteração é um cliente entrando 
         
-        # definição tempo de inicio e tempo de fila
-        if tinit < tfim:
-            tinit += prev_ts
-            tf = tinit - treal
-            tcaixalivre = 0
+        tec = Gtec.x()#Gera valores de uma distribuição
+        ts = Gts.x()    
+
+
+        cTServ += ts #Soma tempo serviços
+
+        treal += tec    #Tempo real += Tempo Entre Chegadas
+        
+        if treal < tfim: #Tem alguem na fila
+            tinit = tfim
+            tfila = tinit - treal
+            tCLivre = 0
+            cClientesFila +=1
         else:
             tinit = treal
-            tf = 0
-            tcaixalivre = tfim - treal
+            tfila = 0
+            tCLivre = treal - tfim
 
-        # definição tfim
-        tfim = tinit + ts
+        cTFuncLivre += tCLivre
+        cTEspera += tfila
+
+        tfim = tinit + ts # Tempo final = Tempo inicio + Tempo Sistema
 
         queue.append(tfim)
 
         # definição tempo no sistema
-        tsist = tfim - treal
+        tsist = tfila + ts
+        cTSist += tsist
 
         if len(queue) > 0 and queue[0] < treal:
             queue.popleft()
-        
-        nf = len(queue)
+    
 
-        print("{:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {}".format(tec,ts,treal,tinit,tfim,tf,tsist,tcaixalivre,nf))
+        # print("{:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {}".format(tec,ts,treal,tinit,tfim,tfila,tsist,tCLivre,len(queue)))
         prev_ts = ts
 
-        # estudos estatisticos
-        clientes +=1
-        tms += ts
-        tds += tsist
-        tmef += tf
-        pfunclivre += tcaixalivre
-        if nf > 0:
-            pfila += 1
+    
+    return cTServ/tClientes, cTSist/tClientes, cTEspera/tClientes, cTFuncLivre/TMAX, cClientesFila/tClientes
 
-
-    print(",,,,,,,,,Tempo médio de Serviço:, {}", (tms/clientes))
-    print(",,,,,,,,,Tempo médio despendido no sistema:, {}", (tds/clientes))
-    print(",,,,,,,,,Tempo médio de espera na fila:, {}", (tmef/clientes))
-    print(",,,,,,,,,Probabilidade do funcionario estar livre:, {}", (pfunclivre/TMAX))
-    print(",,,,,,,,,Probabilidade de esperar na fila:, {}", (pfila/clientes)) 
+if __name__ == "__main__":
+    MAX = 200
+    Medias = []
+    for i in range(MAX):
+        pass
