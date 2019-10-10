@@ -3,8 +3,8 @@ import scipy.stats
 def ci(X, confidence=0.95):
     n = len(X)
     se = desvp(X) / (n*(1/2))    
-    h = se * scipy.stats.t.ppf((1 + confidence) / 2., n-1)
-    
+    h = se * scipy.stats.t.ppf((1 + confidence) / 2, n-1)
+
     return (media(X)-h, media(X)+h)
 
 def media(X):
