@@ -6,7 +6,8 @@ class Attendant:
             Each attendant has it own queue, for 1 queue models the clients end_time must be appended
             to the shortest Attendant.queue. 
     '''
-    queue = deque()
+    def __init__(self):
+        self.queue = deque()
 
     def append(self, end_time):
         '''
