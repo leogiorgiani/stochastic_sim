@@ -1,4 +1,4 @@
-from Random import Congrencial as crand
+from utils.Random import Congrencial as crand
 import matplotlib.pyplot as plt
 from math import log, exp, factorial, cos, sin, pi, sqrt, floor
 
@@ -101,9 +101,7 @@ def samplenumbers(dist=Normal(), n = 100000, wtuples = False):
     return X
 
 if __name__ == "__main__":
-    A = samplenumbers(Weibul(a = 1.5, b=3),10000)
-    for x, y in A:
-        print("({}, {})".format(x,y))
+    A = samplenumbers(Erlang(1.5, 4),10000, wtuples=True)
     plt.plot([x for x, _ in A], [y for _, y in A], 'k+', markersize=0.1)
     plt.show()
 

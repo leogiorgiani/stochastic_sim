@@ -1,6 +1,8 @@
 import scipy.stats
 
-def ci(X, confidence=0.95, avg=media(x), std=desvp(X), n=len(X)):
+def ci(X, confidence=0.95):
+    avg=media(X); std=desvp(X); n=len(X)
+    
     se = std / (n*(1/2))    
     h = se * scipy.stats.t.ppf((1 + confidence) / 2, n-1)
 
