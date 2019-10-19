@@ -1,7 +1,8 @@
-from Distributions import Exponencial, Erlang, samplenumbers
+from utils.Distributions import Exponencial, Erlang
+from utils.Random import Congrencial as crand
 from collections import deque
-from Random import Congrencial as crand
 
+from models import Attendant, Client
 '''
     TODO:
         1. create a method for executing one entrance in the queue, and then be able to enqueue 
@@ -75,3 +76,4 @@ if __name__ == "__main__":
     Medias = []
     for i in range(MAX):
         pass
+        
