@@ -31,6 +31,6 @@ class Server:
         
         return idx
 
-    def update_server(self):
+    def update(self):
         for a in self.attendants:
             a.updateQueue(self.real_time)
