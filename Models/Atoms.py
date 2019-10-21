@@ -40,9 +40,9 @@ class Client:
     start_time: float
     end_time: float
 
-    def __init__(self, interarrival_time, service_time, arrive_time, start_time):
+    def __init__(self, interarrival_time, service_time, arrive_time, queue_time):
         self.interarrival_time = interarrival_time
         self.service_time = service_time
         self.arrive_time = arrive_time
-        self.start_time = start_time
+        self.start_time = arrive_time + queue_time
         self.end_time = start_time + service_time

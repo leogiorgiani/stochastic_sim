@@ -1,13 +1,6 @@
 from utils.Distributions import Erlang, Exponencial
 from Models.Atoms import Attendant, Client
 
-'''
-    TODO:   - clients arrival
-            - clients disparture
-            - stats processing
-            - generalized model
-'''
-
 class Server:
     attendants: list
     real_time: float
@@ -17,6 +10,9 @@ class Server:
         self.real_time = 0
 
     def client_arrival(self, client: Client):
+        '''
+            TODO: Clients arrival tests
+        '''
         self.attendants[self.getMinimalServiceTime()].append(client.end_time)
         real_time += client.interarrival_time #Tempo Real += TEC
         self.update()

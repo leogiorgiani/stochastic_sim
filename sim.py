@@ -2,7 +2,6 @@ from utils.Distributions import Exponencial, Erlang
 from utils.Random import Congrencial as crand
 from collections import deque
 
-from models import Attendant, Client
 '''
     TODO:
         1. create a method for executing one entrance in the queue, and then be able to enqueue 
