@@ -32,7 +32,7 @@ class Attendant:
 class Client:
     '''
         Client class:
-            
+            ??
     '''
     interarrival_time: float #TEC
     service_time: float #TS
