@@ -11,11 +11,9 @@ class Server:
 
     def client_arrival(self, client: Client):
         '''
-            TODO: Clients arrival tests
+            
         '''
         self.attendants[self.getMinimalServiceTime()].append(client.end_time)
-        real_time += client.interarrival_time #Tempo Real += TEC
-        self.update()
 
     def getMinimalServiceTime(self):
         '''
@@ -30,6 +28,20 @@ class Server:
         
         return idx
 
-    def update(self):
+    def update(self, time_inc):
+        self.real_time += time_inc
         for a in self.attendants:
             a.updateQueue(self.real_time)
+
+    def getFreeTime(self):
+        '''
+            Returns the number of free attendents and the average free time of them.
+        '''
+        t_free_att = 0
+        free_time = 0
+        for a in self.attendants:
+            if(a.isFree):
+                t_free_att += 1
+                free_time += self.real_time - a.last_end_time
+
+        return (t_free_att, free_time/t_free_att) if t_free_att != 0 else (0, 0)
