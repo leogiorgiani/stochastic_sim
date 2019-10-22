@@ -2,15 +2,6 @@ from utils.Distributions import Exponencial, Erlang
 from utils.Random import Congrencial as crand
 from collections import deque
 
-'''
-    TODO:
-        1. create a method for executing one entrance in the queue, and then be able to enqueue 
-        two or more queues.
-        2. create a method that receives the number of queues used in series and how many queues 
-        is used in parallel.
-        3. be able to perform statistical analysis for each queue, and the whole system
-'''
-
 def simulate(Gtec = Exponencial(4), Gts = Erlang(2, 3), TMAX = 60):
     #tempos
     treal = 0
@@ -64,15 +55,13 @@ def simulate(Gtec = Exponencial(4), Gts = Erlang(2, 3), TMAX = 60):
             queue.popleft()
     
 
-        # print("{:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {}".format(tec,ts,treal,tinit,tfim,tfila,tsist,tCLivre,len(queue)))
+        print("{:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {}".format(tec,ts,treal,tinit,tfim,tfila,tsist,tCLivre,len(queue)))
         prev_ts = ts
 
     
     return cTServ/tClientes, cTSist/tClientes, cTEspera/tClientes, cTFuncLivre/TMAX, cClientesFila/tClientes
 
 if __name__ == "__main__":
-    MAX = 200
-    Medias = []
-    for i in range(MAX):
-        pass
-        
+    crand.seed(1000)
+    print("tec,ts,treal,tinit,tfim,tfila,tsist,tCLivre,n_Fila")
+    simulate()
