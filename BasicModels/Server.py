@@ -1,5 +1,5 @@
 from utils.Distributions import Erlang, Exponencial
-from Models.Atoms import Attendant, Client
+from BasicModels.Atoms import Attendant, Client
 
 class Server:
     attendants: list

@@ -1,7 +1,7 @@
 from utils.Distributions import Exponencial, Erlang
 from utils.Random import Congrencial as crand
-from Models.Server import Server
-from Models.Atoms import Client
+from BasicModels.Server import Server
+from BasicModels.Atoms import Client
 '''
     TODO:   - stats processing
             - Create a server with two queues (serial)
