@@ -17,7 +17,7 @@ def simulate(n_attendants = 2, TMAX = 60, tec_g = Exponencial(4), ts_g = Erlang(
         _, t_FuncL = sv.getFreeTime()
         sv.client_arrival(cl)
         print("{:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {}".\
-            format(tec, ts, sv.real_time, cl.start_time, cl.end_time, t_fila, cl.spent_time, t_FuncL, pessoasnafila))
+            format(tec, ts, sv.real_time, cl.start_time, cl.end_time, t_fila, cl.spent_time, t_FuncL, sv.getQueuesSize()))
 
 if __name__ == "__main__":
     crand.seed(1000)
