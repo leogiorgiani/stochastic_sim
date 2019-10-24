@@ -33,6 +33,13 @@ class Server:
         for a in self.attendants:
             a.updateQueue(self.real_time)
 
+    def getQueuesSize(self):
+        count = 0
+        for a in self.attendants:
+            count += len(a)
+
+        return count
+
     def getFreeTime(self):
         '''
             Returns the number of free attendents and the average free time of them.
