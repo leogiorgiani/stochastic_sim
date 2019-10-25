@@ -10,7 +10,7 @@ class Entropy:
             n = int.from_bytes(buffer, 'little')
         return n / (2**64 - 1)
 
-prev = Entropy.rand()
+prev = Entropy.rand()*10000
 
 class Congrencial:
     @staticmethod
@@ -31,3 +31,6 @@ class Congrencial:
         prev = ((a*prev+c) % M)
         
         return prev/M
+
+if __name__ == "__main__":
+    print([Congrencial.rand() for _ in range(100)])
