@@ -2,21 +2,21 @@ class Entropy:
     @staticmethod
     def rand():
         '''
-            Generates a random number, between 0 and 1, using the /dev/random file.
+            Generates a random int using the /dev/urandom file.
         '''
-        path = '/dev/random'
+        path = '/dev/urandom'
         with open(path,'rb') as f:
             buffer = f.read(8)
             n = int.from_bytes(buffer, 'little')
-        return n / (2**64 - 1)
+        return n
 
-prev = Entropy.rand()*10000
+prev = Entropy.rand()
 
 class Congrencial:
     @staticmethod
-    def seed(x):
+    def seed(X=None):
         global prev
-        prev = x
+        prev = X if X is not None and X > 0 else Entropy.rand()
 
     @staticmethod
     def rand(a=16807, c=0, M=2**(32-1)-1):
@@ -33,4 +33,4 @@ class Congrencial:
         return prev/M
 
 if __name__ == "__main__":
-    print([Congrencial.rand() for _ in range(100)])
+    pass
