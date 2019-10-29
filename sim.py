@@ -62,6 +62,6 @@ def simulate(Gtec = Exponencial(4), Gts = Erlang(2, 3), TMAX = 60):
     return cTServ/tClientes, cTSist/tClientes, cTEspera/tClientes, cTFuncLivre/TMAX, cClientesFila/tClientes
 
 if __name__ == "__main__":
-    crand.seed(1000)
+    crand.seed(1)
     print("tec,ts,treal,tinit,tfim,tfila,tsist,tCLivre,n_Fila")
     simulate()
