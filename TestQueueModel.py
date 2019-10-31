@@ -25,5 +25,4 @@ def simulate(n_attendants = 1, TMAX = 60, tec_g = Exponencial(4), ts_g = Erlang(
     return sv.stats.resume(TMAX)
 
 if __name__ == "__main__":
-    crand.seed(1000)
     print(simulate())
