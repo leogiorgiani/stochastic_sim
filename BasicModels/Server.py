@@ -69,7 +69,7 @@ class Server:
 
     def hasFreeAttendant(self) -> bool:
         for a in self.attendants:
-            if len(a) == 0:
+            if a.isFree:
                 return True
 
         return False
