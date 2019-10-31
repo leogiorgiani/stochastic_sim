@@ -10,13 +10,16 @@ class Entropy:
             n = int.from_bytes(buffer, 'little')
         return n
 
-prev = Entropy.rand()
+prev: int
 
 class Congrencial:
     @staticmethod
     def seed(X=None):
         global prev
         prev = X if X is not None and X > 0 else Entropy.rand()
+        
+        for _ in range(10): #Used to remove the initial bias of the Congrencial generator
+            Congrencial.rand()
 
     @staticmethod
     def rand(a=16807, c=0, M=2**(32-1)-1):
@@ -31,6 +34,8 @@ class Congrencial:
         prev = ((a*prev+c) % M)
         
         return prev/M
+
+Congrencial.seed()
 
 if __name__ == "__main__":
     pass
