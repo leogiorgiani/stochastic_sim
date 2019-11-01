@@ -12,11 +12,30 @@ class Stats:
     total_clients_inqueue = 0
 
     def resume(self, time):
+        '''
+            Returns stats:
+                Average service time,
+                Average spent time,
+                Average queue time,
+                Probability of finding a free attendent,
+                Probability of await in queue.
+        '''
         return  self.total_service_time/self.n_clients, self.total_spent_time/self.n_clients,\
                 self.total_queue_time/self.n_clients, self.total_free_attendents_avgtime/time,\
                 self.total_clients_inqueue / self.n_clients
 
 class Server:
+    '''
+            In This Class the simulation of one queue is made by looking into the lowest end time on queue,
+        and represents this model:
+
+                            Attendents
+            Queue         +->  [] (1)
+            | | | | | | | +->  [] (2)
+                        ...
+                          +->  [] (n)
+
+    '''
     attendants: list
     real_time: float
     stats: Stats
@@ -53,6 +72,9 @@ class Server:
                 idx = i
         
         return idx
+
+    def getMinimalAwaitTime(self):
+        return max(self.attendants[self.getMinimalServiceTime()].getAwaitTime() - self.real_time, 0)
 
     def update(self, time_inc):
         self.real_time += time_inc
