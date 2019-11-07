@@ -22,7 +22,7 @@ def var(X, sample=True):
     for i in range(len(X)):
         sum += (X[i] - avg)**2
         
-    return sum/len(X-1) if sample else sum/len(X)
+    return sum/(len(X)-1) if sample else sum/len(X)
  
 def desvp(X):
     return var(X)**(1/2)
