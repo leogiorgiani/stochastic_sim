@@ -24,6 +24,19 @@ if __name__ == "__main__":
         sAvgSt1.append(avgSt1); sAvgSpt1.append(avgSpt1); sAvgQt1.append(avgQt1); sPFA1.append(pFA1); sPAQ1.append(pAQ1)
         sAvgSt2.append(avgSt2); sAvgSpt2.append(avgSpt2); sAvgQt2.append(avgQt2); sPFA2.append(pFA2); sPAQ2.append(pAQ2)
 
-    print(ci(sAvgQt1))
+    print("""Fila 1: \n
+            \tTempo médio de serviço: {}\n
+            \tTempo médio gasto no sistema: {}\n
+            \tTempo médio de fila: {}\n
+            \tProbabilidade de atendente livre: {}\n
+            \tProbabilidade de esperar na fila  {}\n
+        """.format(ci(sAvgSt1), ci(sAvgSpt1), ci(sAvgQt1), ci(sPFA1), ci(sPAQ1)))
     
+    print("""Fila 2: \n
+            \tTempo médio de serviço: {}\n
+            \tTempo médio gasto no sistema: {}\n
+            \tTempo médio de fila: {}\n
+            \tProbabilidade de atendente livre: {}\n
+            \tProbabilidade de esperar na fila  {}\n
+        """.format(ci(sAvgSt2), ci(sAvgSpt2), ci(sAvgQt2), ci(sPFA2), ci(sPAQ2)))
     
