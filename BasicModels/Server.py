@@ -74,15 +74,24 @@ class Server:
         return idx
 
     def getMinimalAwaitTime(self):
+        '''
+            Returns the minimal await time in the server 
+        '''
         return max(self.attendants[self.getMinimalServiceTime()].getAwaitTime() - self.real_time, 0)
 
     def update(self, time_inc):
+        '''
+            Update the server time using a time increment (TEC) and update the queues status.
+        '''
         self.real_time += time_inc
         for a in self.attendants:
             a.updateQueue(self.real_time)
         self.stats.total_free_attendents_avgtime += self.getFreeTime()
 
     def getQueuesSize(self):
+        '''
+            Returns the sum of the sizes of each queue
+        '''
         count = 0
         for a in self.attendants:
             count += len(a)
@@ -90,6 +99,9 @@ class Server:
         return count
 
     def hasFreeAttendant(self) -> bool:
+        '''
+            Returns True if some attendant is idle, otherwise returns False
+        '''
         for a in self.attendants:
             if a.isFree:
                 return True
