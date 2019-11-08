@@ -28,6 +28,9 @@ class Attendant:
         return self.queue[len(self.queue)-1] if len(self.queue) > 0 else 0
 
     def updateQueue(self, real_time):
+        '''
+            Update the attendant queue using the real time
+        '''
         while len(self.queue) > 0 and self.queue[0] <= real_time:
             self.last_end_time = self.queue.popleft()
         
