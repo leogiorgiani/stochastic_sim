@@ -55,7 +55,7 @@ class System:
         self.stats.total_service_time += client.service_time
         self.stats.total_spent_time += client.spent_time
         self.stats.total_queue_time += client.queue_time
-        self.stats.total_clients_inqueue += 0 if self.hasFreeAttendant() else 1
+        self.stats.total_clients_inqueue += 0 if self.hasFreeServer() else 1
 
         # Client arrival
         self.servers[self.getMinimalServiceTime()].append(client.end_time)
@@ -98,7 +98,7 @@ class System:
 
         return count
 
-    def hasFreeAttendant(self) -> bool:
+    def hasFreeServer(self) -> bool:
         '''
             Returns True if some server is idle, otherwise returns False
         '''
