@@ -1,16 +1,16 @@
 from utils.Distributions import Exponencial, Erlang
 from utils.Random import Congrencial as crand
-from BasicModels.Server import Server
+from BasicModels.System import System
 from BasicModels.Atoms import Client
 
 def simulate(n_attendants = 1, TMAX = 60, tec_g = Exponencial(4), ts_g = Erlang(2,3)):
     '''
-            Simulates the queue model of 1 Server with n attendents,
+            Simulates the queue model of 1 System with n attendents,
         Returns the stats from simulation.
         
-        ** See Server Documentation
+        ** See System Documentation
     '''
-    sv = Server(n_attendants)
+    sv = System(n_attendants)
 
     while sv.real_time < TMAX:
         tec = tec_g.x()

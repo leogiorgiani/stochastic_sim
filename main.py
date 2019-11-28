@@ -14,8 +14,8 @@ if __name__ == "__main__":
         sPFA1 = []; sPFA2 = []
         sPAQ1 = []; sPAQ2 = []
     
-        # for i in Bar('Simulando para {} caixas e {} atendentes de lanche'.format(c, a)).iter(range(5000)):
-        for _ in range(5000):
+        for i in Bar('Simulando para {} caixas e {} atendentes de lanche'.format(c, a)).iter(range(5000)):
+        # for _ in range(5000):
             crand.seed()
             
             (avgSt1, avgSpt1, avgQt1, pFA1, pAQ1),\

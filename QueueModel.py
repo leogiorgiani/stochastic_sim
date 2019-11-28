@@ -1,11 +1,11 @@
 from utils.Distributions import Exponencial, Erlang
 from utils.Random import Congrencial as crand
-from BasicModels.Server import Server
+from BasicModels.System import System
 from BasicModels.Atoms import Client
 
 def simulate(n_caixas = 1, n_atendentes = 1, TMAX = 60, tec_g= Exponencial(4), tscaixa_g = Erlang(2,3), tsatend_g = Erlang(1.5, 4)):
-    caixas = Server(n_caixas)
-    atendentes = Server(n_atendentes)
+    caixas = System(n_caixas)
+    atendentes = System(n_atendentes)
 
     prev_tec_att = 0
 
