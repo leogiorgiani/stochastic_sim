@@ -3,7 +3,7 @@ from utils.Random import Congrencial as crand
 from BasicModels.System import System
 from BasicModels.Atoms import Client
 
-def simulate(n_attendants = 1, TMAX = 60, tec_g = Exponencial(4), ts_g = Erlang(2,3)):
+def simulate(n_attendants = 1, TMAX = 30, tec_g = Exponencial(4), ts_g = Erlang(2,3)):
     '''
             Simulates the queue model of 1 System with n attendents,
         Returns the stats from simulation.

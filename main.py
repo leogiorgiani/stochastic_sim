@@ -5,7 +5,7 @@ from QueueModel import simulate
 from utils.Random import Congrencial as crand
 
 if __name__ == "__main__":
-    n_atendentes = [(3,6), (4,5), (5,4), (6,3)]
+    n_atendentes = [(4,6), (5,5), (6,4)]
 
     for c,a in n_atendentes:
         sAvgSt1 = []; sAvgSt2 = []
