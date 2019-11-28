@@ -1,5 +1,5 @@
 from utils.Distributions import Erlang, Exponencial
-from BasicModels.Atoms import Attendant, Client
+from BasicModels.Atoms import Server, Client
 from dataclasses import dataclass
 
 @dataclass
@@ -8,7 +8,7 @@ class Stats:
     total_service_time = 0 
     total_spent_time = 0
     total_queue_time = 0
-    total_free_attendents_avgtime = 0
+    total_free_server_avgtime = 0
     total_clients_inqueue = 0
 
     def resume(self, time):
@@ -21,27 +21,27 @@ class Stats:
                 Probability of await in queue.
         '''
         return  self.total_service_time/self.n_clients, self.total_spent_time/self.n_clients,\
-                self.total_queue_time/self.n_clients, self.total_free_attendents_avgtime/time,\
+                self.total_queue_time/self.n_clients, self.total_free_server_avgtime/time,\
                 self.total_clients_inqueue / self.n_clients
 
-class Server:
+class System:
     '''
             In This Class the simulation of one queue is made by looking into the lowest end time on queue,
         and represents this model:
 
-                            Attendents
+                            Server
             Queue         +->  [] (1)
             | | | | | | | +->  [] (2)
                         ...
                           +->  [] (n)
 
     '''
-    attendants: list
+    servers: list
     real_time: float
     stats: Stats
 
-    def __init__(self, n_attendants):
-        self.attendants = [Attendant() for _ in range(n_attendants)]
+    def __init__(self, n_servers):
+        self.servers = [Server() for _ in range(n_servers)]
         self.real_time = 0
         self.stats = Stats()
 
@@ -58,15 +58,15 @@ class Server:
         self.stats.total_clients_inqueue += 0 if self.hasFreeAttendant() else 1
 
         # Client arrival
-        self.attendants[self.getMinimalServiceTime()].append(client.end_time)
+        self.servers[self.getMinimalServiceTime()].append(client.end_time)
 
     def getMinimalServiceTime(self):
         '''
             Returns the index of the attentend with minimal service time
         '''
-        min = self.attendants[0]
+        min = self.servers[0]
         idx = 0
-        for i, a in enumerate(self.attendants):
+        for i, a in enumerate(self.servers):
             if min.getAwaitTime() > a.getAwaitTime():
                 min = a
                 idx = i
@@ -77,32 +77,32 @@ class Server:
         '''
             Returns the minimal await time in the server 
         '''
-        return max(self.attendants[self.getMinimalServiceTime()].getAwaitTime() - self.real_time, 0)
+        return max(self.servers[self.getMinimalServiceTime()].getAwaitTime() - self.real_time, 0)
 
     def update(self, time_inc):
         '''
             Update the server time using a time increment (TEC) and update the queues status.
         '''
         self.real_time += time_inc
-        for a in self.attendants:
+        for a in self.servers:
             a.updateQueue(self.real_time)
-        self.stats.total_free_attendents_avgtime += self.getFreeTime()
+        self.stats.total_free_server_avgtime += self.getFreeTime()
 
     def getQueuesSize(self):
         '''
-            Returns the sum of the sizes of each queue
+            Returns the sum of the sizes of each server queue
         '''
         count = 0
-        for a in self.attendants:
+        for a in self.servers:
             count += len(a)
 
         return count
 
     def hasFreeAttendant(self) -> bool:
         '''
-            Returns True if some attendant is idle, otherwise returns False
+            Returns True if some server is idle, otherwise returns False
         '''
-        for a in self.attendants:
+        for a in self.servers:
             if a.isFree:
                 return True
 
@@ -110,11 +110,11 @@ class Server:
 
     def getFreeTime(self):
         '''
-            Returns the number of free attendents and the average free time of them.
+            Returns the number of free server and the average free time of them.
         '''
         t_free_att = 0
         free_time = 0
-        for a in self.attendants:
+        for a in self.servers:
             if(a.isFree):
                 t_free_att += 1
                 free_time += self.real_time - a.last_end_time
