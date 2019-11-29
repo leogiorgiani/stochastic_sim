@@ -5,7 +5,7 @@ from QueueModel import simulate
 from utils.Random import Congrencial as crand
 
 if __name__ == "__main__":
-    n_atendentes = [(4,6), (5,5), (6,4)]
+    n_atendentes = [(4,8), (5,7), (6,6), (7,5)]
 
     for c,a in n_atendentes:
         sAvgSt1 = []; sAvgSt2 = []
@@ -15,7 +15,6 @@ if __name__ == "__main__":
         sPAQ1 = []; sPAQ2 = []
     
         for i in Bar('Simulando para {} caixas e {} atendentes de lanche'.format(c, a)).iter(range(5000)):
-        # for _ in range(5000):
             crand.seed()
             
             (avgSt1, avgSpt1, avgQt1, pFA1, pAQ1),\
